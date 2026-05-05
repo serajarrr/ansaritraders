@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ansari Traders — Premium Spices</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7faf7;
+      --bg-section: #eef5ee;
+      --card: #ffffff;
+      --green: #2d7a4f;
+      --green-light: #4aaa72;
+      --green-dim: #a8d5b8;
+      --green-pale: #d4edda;
+      --dark: #1a2e22;
+      --text: #2c3e2d;
+      --muted: #6b8c72;
+      --border: rgba(45,122,79,0.15);
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232d7a4f' fill-opacity='0.03'%3E%3Cpath d='M30 0 Q35 15 30 30 Q25 15 30 0z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 5vw;
+      background: rgba(247,250,247,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 24px rgba(45,122,79,0.1); }
+
+    .nav-logo {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; letter-spacing: 0.2em; color: var(--green);
+      text-decoration: none; font-weight: 700;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-cta {
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--white); background: var(--green); padding: 0.55rem 1.4rem;
+      text-decoration: none; border-radius: 2px; transition: background 0.25s; font-weight: 500;
+    }
+    .nav-cta:hover { background: var(--green-light); }
+
+    .nav-toggle {
+      display: none; background: none; border: none;
+      color: var(--green); font-size: 1.5rem; cursor: pointer; line-height: 1; padding: 0.2rem 0.4rem;
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0;
+      background: rgba(26,46,34,0.98); z-index: 300;
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2.5rem; backdrop-filter: blur(10px);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Cinzel', serif; font-size: 1.5rem;
+      letter-spacing: 0.15em; color: var(--white); text-decoration: none; transition: color 0.25s;
+    }
+    .mobile-menu a:hover { color: var(--green-light); }
+    .mobile-menu-close {
+      position: absolute; top: 1.3rem; right: 1.5rem;
+      background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.8rem; cursor: pointer;
+    }
+    .mobile-menu .mob-cta {
+      font-family: 'Jost', sans-serif; font-size: 0.75rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--white); background: var(--green);
+      padding: 0.9rem 2.5rem; border-radius: 2px; margin-top: 1rem;
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 0 5vw;
+      background: linear-gradient(135deg, #f7faf7 0%, #e8f4ec 55%, #d4edda 100%);
+    }
+    .hero-bg-blob {
+      position: absolute; right: -60px; top: -60px;
+      width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(45,122,79,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-dots {
+      position: absolute; right: 4%; top: 50%; transform: translateY(-50%);
+      display: grid; grid-template-columns: repeat(8, 14px); grid-template-rows: repeat(8, 14px);
+      gap: 6px; opacity: 0.18; z-index: 1; pointer-events: none;
+    }
+    .hero-dots span { display: block; width: 3px; height: 3px; background: var(--green); border-radius: 50%; }
+
+    .hero-circle-wrap {
+      position: absolute; right: 8%; top: 50%; transform: translateY(-50%);
+      width: 340px; height: 340px; z-index: 2;
+    }
+    .hero-circle-wrap::before {
+      content: ''; position: absolute; inset: -18px;
+      border-radius: 50%; border: 1px solid rgba(45,122,79,0.18);
+    }
+    .hero-circle-wrap::after {
+      content: ''; position: absolute; inset: -36px;
+      border-radius: 50%; border: 1px solid rgba(45,122,79,0.08);
+    }
+    .hero-circle {
+      width: 100%; height: 100%; border-radius: 50%;
+      overflow: hidden; border: 3px solid rgba(45,122,79,0.2);
+      background: var(--green-pale); display: flex; align-items: center; justify-content: center;
+    }
+    .hero-circle img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .hero-circle-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--muted); font-size: 0.65rem; letter-spacing: 0.12em;
+      text-transform: uppercase; text-align: center; padding: 1.5rem;
+    }
+    .hero-circle-placeholder .ph-icon { font-size: 2.8rem; opacity: 0.35; display: block; margin-bottom: 0.2rem; }
+
+    .hero-content { position: relative; z-index: 3; max-width: 540px; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 1.6rem; font-weight: 500;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; width: 26px; height: 1px; background: var(--green-dim);
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      font-weight: 700; line-height: 1.05; letter-spacing: 0.03em; color: var(--dark); margin-bottom: 0.3rem;
+    }
+    .hero-title span { color: var(--green); }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.05rem, 2vw, 1.45rem); font-style: italic; color: var(--muted); margin-bottom: 1.6rem;
+    }
+
+    .hero-desc {
+      font-size: clamp(0.9rem, 1.1vw, 1rem);
+      color: rgba(44,62,45,0.62); max-width: 370px; line-height: 1.95; margin-bottom: 2.4rem;
+    }
+
+    .hero-btns { display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.2rem; }
+
+    .btn-green {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--white); background: var(--green); padding: 0.95rem 2.1rem;
+      text-decoration: none; border-radius: 2px; transition: background 0.25s, transform 0.2s;
+      font-weight: 500; display: inline-block;
+    }
+    .btn-green:hover { background: var(--green-light); transform: translateY(-2px); }
+
+    .btn-ghost {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--green); border: 1.5px solid var(--green-dim); padding: 0.95rem 2.1rem;
+      text-decoration: none; border-radius: 2px; transition: border-color 0.25s, background 0.25s;
+      font-weight: 500; display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--green); background: rgba(45,122,79,0.04); }
+
+    .btn-dl {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--green); font-weight: 500; text-decoration: none;
+      padding: 0.95rem 0; border-bottom: 1.5px solid var(--green-dim);
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .btn-dl:hover { color: var(--green-light); border-color: var(--green-light); }
+    .btn-dl svg { width: 14px; height: 14px; fill: currentColor; }
+
+    .hero-location {
+      font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted);
+      text-transform: uppercase; margin-top: 2.8rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .hero-location .pin { color: var(--green); }
+
+    /* DIVIDER */
+    .divider { display: flex; align-items: center; gap: 1rem; padding: 0 5vw; }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-gem { color: var(--green); }
+
+    /* SECTIONS */
+    section { padding: 7rem 5vw; position: relative; z-index: 1; }
+
+    .section-label {
+      font-size: 0.64rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 0.7rem; display: flex; align-items: center; gap: 0.7rem; font-weight: 500;
+    }
+    .section-label::after { content: ''; display: block; width: 34px; height: 1.5px; background: var(--green-dim); }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.9rem, 4vw, 3.1rem);
+      font-weight: 600; letter-spacing: 0.05em; line-height: 1.15; color: var(--dark); margin-bottom: 0.9rem;
+    }
+
+    .section-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 1.5vw, 1.2rem); font-style: italic;
+      color: var(--muted); max-width: 440px; line-height: 1.8;
+    }
+
+    /* PRODUCTS */
+    #products { background: var(--white); }
+
+    .products-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem; flex-wrap: wrap; gap: 2rem;
+    }
+
+    .product-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.4rem;
+    }
+
+    .product-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+      overflow: hidden; display: flex; flex-direction: column;
+      cursor: pointer; position: relative;
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+    }
+    .product-card:hover {
+      box-shadow: 0 8px 30px rgba(45,122,79,0.12);
+      transform: translateY(-5px); border-color: var(--green-dim);
+    }
+
+    .p-view-badge {
+      position: absolute; top: 12px; right: 12px;
+      background: rgba(45,122,79,0.88); color: #fff;
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-weight: 500; padding: 0.3rem 0.65rem; border-radius: 2px;
+      opacity: 0; transform: translateY(-4px);
+      transition: opacity 0.25s, transform 0.25s;
+      backdrop-filter: blur(4px); z-index: 5; pointer-events: none;
+    }
+    .product-card:hover .p-view-badge { opacity: 1; transform: translateY(0); }
+
+    .p-img {
+      width: 100%; height: 200px; overflow: hidden;
+      background: var(--green-pale); position: relative; flex-shrink: 0;
+    }
+    .p-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .product-card:hover .p-img img { transform: scale(1.06); }
+    .p-img .p-fallback {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 0.3rem;
+      color: var(--green-dim); font-size: 2rem; pointer-events: none;
+    }
+    .p-img .p-fallback small { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+    .p-body { padding: 1.6rem 1.6rem 1.8rem; display: flex; flex-direction: column; flex: 1; }
+
+    .p-num { font-size: 0.58rem; letter-spacing: 0.28em; color: var(--green-dim); margin-bottom: 0.4rem; font-weight: 500; }
+    .p-name { font-family: 'Cinzel', serif; font-size: 1.08rem; font-weight: 600; letter-spacing: 0.06em; color: var(--dark); margin-bottom: 0.25rem; }
+    .p-tagline { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; color: var(--green); margin-bottom: 0.75rem; }
+    .p-desc { font-size: 0.85rem; color: rgba(44,62,45,0.55); line-height: 1.85; margin-bottom: 1rem; flex: 1; }
+    .p-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1rem; }
+    .p-tag { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); background: var(--green-pale); border-radius: 2px; padding: 0.25rem 0.55rem; font-weight: 500; }
+
+    .p-cta-row { display: flex; gap: 0.6rem; margin-top: auto; }
+    .p-btn-detail {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      color: var(--green); border: 1.5px solid var(--green-dim); padding: 0.65rem 0.8rem;
+      border-radius: 2px; cursor: pointer; background: transparent;
+      transition: border-color 0.2s, background 0.2s; font-family: 'Jost', sans-serif;
+    }
+    .p-btn-detail:hover { border-color: var(--green); background: rgba(45,122,79,0.04); }
+    .p-btn-inquiry {
+      flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500;
+      color: var(--white); background: var(--green); padding: 0.65rem 0.8rem;
+      border-radius: 2px; cursor: pointer; border: none; transition: background 0.2s;
+      font-family: 'Jost', sans-serif;
+    }
+    .p-btn-inquiry:hover { background: var(--green-light); }
+
+    /* CATALOGUE STRIP */
+    #catalogue {
+      background: var(--green); padding: 3.5rem 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .cat-text h3 { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 3vw, 1.75rem); letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.25rem; }
+    .cat-text p { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: rgba(255,255,255,0.65); }
+    .btn-cat-dl {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+      color: var(--green); background: var(--white); padding: 1rem 2.2rem; text-decoration: none;
+      border-radius: 2px; transition: background 0.25s, transform 0.2s; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn-cat-dl:hover { background: var(--green-pale); transform: translateY(-2px); }
+
+    /* ABOUT */
+    #about { background: var(--bg-section); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-frame { border: 1px solid var(--border); border-radius: 4px; padding: 2.2rem; background: var(--white); position: relative; }
+    .about-frame::after {
+      content: ''; position: absolute; top: 9px; left: 9px; right: -9px; bottom: -9px;
+      border: 1px solid var(--green-pale); border-radius: 4px; pointer-events: none; z-index: -1;
+    }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+    .stat-cell { background: var(--white); padding: 1.6rem 1.3rem; }
+    .stat-val { font-family: 'Cinzel', serif; font-size: 1.9rem; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 0.25rem; }
+    .stat-lbl { font-size: 0.67rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+    .about-body p { font-size: clamp(0.88rem, 1.1vw, 0.98rem); color: rgba(44,62,45,0.68); line-height: 1.95; margin-bottom: 1rem; }
+    .owner-row { margin-top: 2rem; display: flex; align-items: center; gap: 1rem; padding-top: 1.8rem; border-top: 1px solid var(--border); }
+    .owner-av { width: 46px; height: 46px; background: linear-gradient(135deg, var(--green), var(--green-light)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--white); font-weight: 700; flex-shrink: 0; }
+    .owner-name { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.08em; color: var(--dark); }
+    .owner-role { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-top: 0.18rem; }
+
+    /* CONTACT */
+    #contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 3.5rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .c-info-card { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 1.5rem 1.8rem; display: flex; align-items: flex-start; gap: 1rem; transition: box-shadow 0.3s, transform 0.3s; }
+    .c-info-card:hover { box-shadow: 0 4px 20px rgba(45,122,79,0.08); transform: translateY(-2px); }
+    .c-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .c-label { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 0.25rem; }
+    .c-val { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: var(--dark); line-height: 1.5; }
+
+    .wa-form-wrap { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; }
+    .wa-form-title { font-family: 'Cinzel', serif; font-size: 1.15rem; letter-spacing: 0.06em; color: var(--dark); margin-bottom: 0.3rem; }
+    .wa-form-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1rem; color: var(--muted); margin-bottom: 1.8rem; }
+
+    .wa-prefill-notice {
+      display: none; align-items: center; gap: 0.7rem;
+      background: var(--green-pale); border: 1px solid var(--green-dim);
+      border-radius: 4px; padding: 0.8rem 1rem; margin-bottom: 1.4rem;
+      font-size: 0.78rem; color: var(--green); font-weight: 500;
+    }
+    .wa-prefill-notice.visible { display: flex; }
+    .wa-prefill-notice button { margin-left: auto; background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; line-height: 1; }
+
+    .wa-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .field-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .field-group label { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--green); font-weight: 500; }
+    .field-group input, .field-group textarea, .field-group select {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 3px;
+      padding: 0.85rem 1rem; font-family: 'Jost', sans-serif; font-size: 0.92rem;
+      color: var(--text); width: 100%; outline: none; transition: border-color 0.25s;
+      font-weight: 300; appearance: none;
+    }
+    .field-group input:focus, .field-group textarea:focus, .field-group select:focus { border-color: var(--green); }
+    .field-group input::placeholder, .field-group textarea::placeholder { color: var(--green-dim); }
+    .field-group textarea { resize: vertical; min-height: 100px; }
+
+    .btn-wa {
+      display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+      background: #25D366; color: var(--white); font-size: 0.75rem;
+      letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+      padding: 1rem; border: none; border-radius: 4px; cursor: pointer;
+      width: 100%; transition: background 0.25s, transform 0.2s; margin-top: 0.3rem;
+    }
+    .btn-wa:hover { background: #1ebe5d; transform: translateY(-2px); }
+    .btn-wa svg { width: 18px; height: 18px; fill: currentColor; flex-shrink: 0; }
+    .btn-wa-note { font-size: 0.65rem; color: var(--muted); text-align: center; margin-top: 0.5rem; letter-spacing: 0.05em; }
+
+    /* FOOTER */
+    footer { background: var(--dark); padding: 4rem 5vw 2rem; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .f-brand { font-family: 'Cinzel', serif; font-size: 1.15rem; letter-spacing: 0.2em; color: var(--green-light); margin-bottom: 0.35rem; }
+    .f-tagline { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.92rem; color: rgba(255,255,255,0.3); margin-bottom: 1.1rem; }
+    .f-desc { font-size: 0.82rem; color: rgba(255,255,255,0.28); line-height: 1.9; }
+    .f-col-title { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-light); margin-bottom: 1.3rem; }
+    .f-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .f-links a { font-size: 0.82rem; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.25s; letter-spacing: 0.05em; }
+    .f-links a:hover { color: var(--green-light); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .f-copy { font-size: 0.7rem; color: rgba(255,255,255,0.18); letter-spacing: 0.07em; }
+    .f-legal { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+    .f-legal a { font-size: 0.7rem; color: rgba(255,255,255,0.18); text-decoration: none; letter-spacing: 0.07em; transition: color 0.25s; }
+    .f-legal a:hover { color: var(--green-light); }
+
+    /* LEGAL MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(26,46,34,0.82); z-index: 500;
+      display: flex; align-items: flex-start; justify-content: center;
+      overflow-y: auto; padding: 2rem 1rem;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+      max-width: 680px; width: 100%; padding: 2.8rem; position: relative;
+      transform: translateY(20px); transition: transform 0.3s; margin: auto;
+    }
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 1.3rem; right: 1.3rem; background: none;
+      border: 1.5px solid var(--border); color: var(--muted); width: 32px; height: 32px;
+      border-radius: 50%; cursor: pointer; font-size: 0.85rem;
+      transition: color 0.2s, border-color 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { color: var(--green); border-color: var(--green); }
+    .modal-title { font-family: 'Cinzel', serif; font-size: 1.5rem; letter-spacing: 0.06em; color: var(--dark); margin-bottom: 0.35rem; }
+    .modal-date { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 1.7rem; padding-bottom: 1.7rem; border-bottom: 1px solid var(--border); }
+    .modal-body h3 { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.1em; color: var(--green); margin: 1.7rem 0 0.6rem; text-transform: uppercase; }
+    .modal-body p { font-size: 0.86rem; color: rgba(44,62,45,0.62); line-height: 1.9; margin-bottom: 0.6rem; }
+    .modal-body ul { list-style: none; margin-bottom: 0.7rem; }
+    .modal-body ul li { font-size: 0.86rem; color: rgba(44,62,45,0.62); line-height: 1.9; padding-left: 1.1rem; position: relative; }
+    .modal-body ul li::before { content: '—'; position: absolute; left: 0; color: var(--green-dim); }
+
+    /* PRODUCT DETAIL PAGE */
+    .product-page {
+      position: fixed; inset: 0; z-index: 400;
+      background: var(--bg); overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .product-page.open { transform: translateX(0); }
+
+    .pp-nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(247,250,247,0.97); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px); padding: 1rem 5vw;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .pp-back {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--green); font-weight: 500; cursor: pointer;
+      background: none; border: none; padding: 0; font-family: 'Jost', sans-serif;
+    }
+    .pp-back:hover { color: var(--green-light); }
+    .pp-back svg { width: 16px; height: 16px; }
+    .pp-breadcrumb { font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
+    .pp-breadcrumb span { color: var(--green); }
+
+    .pp-content { max-width: 1100px; margin: 0 auto; padding: 3.5rem 5vw 5rem; }
+
+    .pp-hero { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-bottom: 4rem; }
+
+    .pp-img-wrap { border-radius: 6px; overflow: hidden; background: var(--green-pale); aspect-ratio: 4/3; position: relative; }
+    .pp-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pp-img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; gap: 0.5rem; color: var(--muted); }
+    .pp-img-placeholder .pp-icon { font-size: 4rem; opacity: 0.4; }
+    .pp-img-placeholder small { font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .pp-info { display: flex; flex-direction: column; }
+    .pp-num { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--green-dim); font-weight: 500; margin-bottom: 0.6rem; }
+    .pp-name { font-family: 'Cinzel', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; letter-spacing: 0.04em; color: var(--dark); line-height: 1.1; margin-bottom: 0.4rem; }
+    .pp-tagline { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--green); margin-bottom: 1.5rem; }
+    .pp-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.8rem; }
+    .pp-tag { font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); background: var(--green-pale); border-radius: 2px; padding: 0.3rem 0.65rem; font-weight: 500; }
+    .pp-desc { font-size: clamp(0.9rem, 1.1vw, 1rem); color: rgba(44,62,45,0.65); line-height: 2; margin-bottom: 2rem; flex: 1; }
+
+    .pp-divider { height: 1px; background: var(--border); margin: 1.8rem 0; }
+
+    .pp-details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem; }
+    .pp-detail-item { background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 1rem 1.2rem; }
+    .pp-detail-label { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--green); font-weight: 500; margin-bottom: 0.3rem; }
+    .pp-detail-val { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--dark); }
+
+    .pp-action-row { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+    .pp-btn-contact {
+      flex: 1; min-width: 200px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+      color: var(--white); background: var(--green); padding: 1rem 1.5rem; border-radius: 3px; border: none;
+      cursor: pointer; transition: background 0.25s, transform 0.2s; font-family: 'Jost', sans-serif;
+    }
+    .pp-btn-contact:hover { background: var(--green-light); transform: translateY(-2px); }
+    .pp-btn-wa {
+      flex: 1; min-width: 200px; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500;
+      color: var(--white); background: #25D366; padding: 1rem 1.5rem; border-radius: 3px; border: none;
+      cursor: pointer; transition: background 0.25s, transform 0.2s; font-family: 'Jost', sans-serif;
+    }
+    .pp-btn-wa:hover { background: #1ebe5d; transform: translateY(-2px); }
+    .pp-btn-wa svg { width: 18px; height: 18px; fill: currentColor; }
+
+    .pp-related { margin-top: 4rem; padding-top: 4rem; border-top: 1px solid var(--border); }
+    .pp-related-title { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 0.06em; color: var(--dark); margin-bottom: 1.8rem; }
+    .pp-related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .pp-related-card { background: var(--white); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; }
+    .pp-related-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(45,122,79,0.1); }
+    .pp-related-img { height: 120px; overflow: hidden; background: var(--green-pale); }
+    .pp-related-img img { width: 100%; height: 100%; object-fit: cover; }
+    .pp-related-body { padding: 0.9rem 1rem; }
+    .pp-related-name { font-family: 'Cinzel', serif; font-size: 0.82rem; color: var(--dark); letter-spacing: 0.06em; }
+    .pp-related-tag { font-size: 0.6rem; color: var(--green); letter-spacing: 0.1em; margin-top: 0.2rem; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform: translateY(22px); } to { opacity:1; transform: translateY(0); } }
+    .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
+    .d1 { animation-delay: 0.15s; }
+    .d2 { animation-delay: 0.3s; }
+    .d3 { animation-delay: 0.45s; }
+    .d4 { animation-delay: 0.6s; }
+
+    /* RESPONSIVE — LARGE DESKTOP */
+    @media (min-width: 1280px) {
+      .nav-links a { font-size: 0.78rem; }
+      .hero-desc { font-size: 1.04rem; }
+      .section-intro { font-size: 1.25rem; }
+      .about-body p { font-size: 1rem; }
+      .p-name { font-size: 1.14rem; }
+      .p-desc { font-size: 0.9rem; }
+    }
+
+    /* TABLET LANDSCAPE */
+    @media (max-width: 1100px) {
+      .hero-circle-wrap { width: 270px; height: 270px; right: 5%; }
+      .pp-hero { gap: 2.5rem; }
+    }
+
+    /* TABLET PORTRAIT */
+    @media (max-width: 900px) {
+      #about { grid-template-columns: 1fr; gap: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .hero-circle-wrap, .hero-dots { display: none; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .pp-hero { grid-template-columns: 1fr; gap: 2rem; }
+      .pp-img-wrap { aspect-ratio: 16/9; max-height: 320px; }
+    }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-toggle { display: block; }
+      nav { padding: 0.9rem 4vw; }
+
+      #hero { padding: 100px 5vw 4rem; min-height: auto; }
+      .hero-btns { flex-direction: column; align-items: stretch; }
+      .btn-green, .btn-ghost { text-align: center; width: 100%; }
+      .btn-dl { justify-content: center; width: 100%; }
+
+      section { padding: 4.5rem 5vw; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .f-legal { justify-content: center; }
+      .modal { padding: 1.8rem 1.1rem; }
+      #catalogue { flex-direction: column; text-align: center; }
+      .btn-cat-dl { width: 100%; justify-content: center; }
+
+      .product-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+      .p-img { height: 150px; }
+      .p-body { padding: 1rem 1rem 1.2rem; }
+      .p-name { font-size: 0.9rem; }
+      .p-tagline { font-size: 0.78rem; }
+      .p-desc { font-size: 0.78rem; }
+      .p-tags { display: none; }
+      .p-cta-row { flex-direction: column; gap: 0.4rem; }
+      .p-btn-detail, .p-btn-inquiry { font-size: 0.58rem; padding: 0.55rem; }
+
+      .pp-content { padding: 2rem 4vw 4rem; }
+      .pp-details-grid { grid-template-columns: 1fr 1fr; }
+      .pp-action-row { flex-direction: column; }
+      .pp-btn-contact, .pp-btn-wa { min-width: unset; width: 100%; }
+      .pp-related-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    }
+
+    @media (max-width: 400px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .pp-details-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMobileMenu()">✕</button>
+  <a href="#products" onclick="closeMobileMenu()">Products</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#catalogue" onclick="closeMobileMenu()">Catalogue</a>
+  <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  <a href="#contact" class="mob-cta" onclick="closeMobileMenu()">Order Now</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="logo.png" alt="Ansari Traders Logo" style="height:34px;width:auto;object-fit:contain;vertical-align:middle;" onerror="this.style.display='none';" />
+    ANSARI TRADERS
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Order Now</a>
+  <button class="nav-toggle" id="navToggle" onclick="openMobileMenu()">☰</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-blob"></div>
+  <div class="hero-dots" id="heroDots"></div>
+  <div class="hero-circle-wrap">
+    <div class="hero-circle">
+      <img src="logo.png" alt="Ansari Traders" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+      <div class="hero-circle-placeholder" style="display:none;">
+        <span class="ph-icon">🏪</span>
+        <span>Save your photo as<br><strong>hero-photo.jpg</strong></span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fade-up">Premium Quality Spices</div>
+    <h1 class="hero-title fade-up d1">ANSARI<br><span>TRADERS</span></h1>
+    <p class="hero-sub fade-up d2">Pure Spices for Every Kitchen</p>
+    <p class="hero-desc fade-up d3">Bringing the finest hand-selected spices to your kitchen — with rich aroma, bold flavour, and natural goodness in every grain.</p>
+    <div class="hero-btns fade-up d4">
+      <a href="#products" class="btn-green">Explore Products</a>
+      <a href="#contact" class="btn-ghost">Order on WhatsApp</a>
+      <a href="catalogue.pdf" download class="btn-dl">
+        <svg viewBox="0 0 16 16"><path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/></svg>
+        Download Catalogue
+      </a>
+    </div>
+    <div class="hero-location fade-up d4"><span class="pin">◎</span> Sonari, Assam 785690</div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-gem">✦</div><div class="divider-line"></div></div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-label">Our Collection</div>
+      <h2 class="section-title">Premium<br>Spices</h2>
+    </div>
+    <p class="section-intro">Each spice carefully selected for its purity, strength of aroma, and authentic character.</p>
+  </div>
+  <div class="product-grid">
+
+    <div class="product-card" onclick="openProductPage(0)">
+      <div class="p-view-badge">View Details</div>
+      <div class="p-img">
+        <img src="black-cardamom.jpg" alt="Black Cardamom" onerror="this.style.display='none';">
+        
+      </div>
+      <div class="p-body">
+        <div class="p-num">01 ── SPICE</div>
+        <div class="p-name">Black Cardamom</div>
+        <div class="p-tagline">Rich Aroma. Bold Flavour.</div>
+        <p class="p-desc">Strong, smoky aroma and deep earthy flavour. Carefully selected for every authentic recipe.</p>
+        <div class="p-tags"><span class="p-tag">Natural</span><span class="p-tag">Premium</span><span class="p-tag">Biryani</span><span class="p-tag">Pulao</span></div>
+        <div class="p-cta-row">
+          <button class="p-btn-detail" onclick="openProductPage(0);event.stopPropagation();">Details</button>
+          <button class="p-btn-inquiry" onclick="goToInquiry(0);event.stopPropagation();">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" onclick="openProductPage(1)">
+      <div class="p-view-badge">View Details</div>
+      <div class="p-img">
+        <img src="black-pepper.jpg" alt="Black Pepper" onerror="this.style.display='none';">
+    
+      </div>
+      <div class="p-body">
+        <div class="p-num">02 ── SPICE</div>
+        <div class="p-name">Black Pepper</div>
+        <div class="p-tagline">Bold Taste. Pure Goodness.</div>
+        <p class="p-desc">Finest peppercorns for a sharp, pungent taste and natural freshness in every grain.</p>
+        <div class="p-tags"><span class="p-tag">Pure & Natural</span><span class="p-tag">Hand Picked</span></div>
+        <div class="p-cta-row">
+          <button class="p-btn-detail" onclick="openProductPage(1);event.stopPropagation();">Details</button>
+          <button class="p-btn-inquiry" onclick="goToInquiry(1);event.stopPropagation();">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" onclick="openProductPage(2)">
+      <div class="p-view-badge">View Details</div>
+      <div class="p-img">
+        <img src="ginger.jpg" alt="Ginger" onerror="this.style.display='none';">
+      
+      </div>
+      <div class="p-body">
+        <div class="p-num">03 ── ROOT</div>
+        <div class="p-name">Ginger</div>
+        <div class="p-tagline">Pure. Natural. Full of Goodness.</div>
+        <p class="p-desc">Premium ginger selected for rich aroma, strong flavour, and natural freshness.</p>
+        <div class="p-tags"><span class="p-tag">Natural</span><span class="p-tag">Tea</span><span class="p-tag">Remedies</span></div>
+        <div class="p-cta-row">
+          <button class="p-btn-detail" onclick="openProductPage(2);event.stopPropagation();">Details</button>
+          <button class="p-btn-inquiry" onclick="goToInquiry(2);event.stopPropagation();">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" onclick="openProductPage(3)">
+      <div class="p-view-badge">View Details</div>
+      <div class="p-img">
+        <img src="dryginger.jpeg" alt="Dry Sliced Ginger" onerror="this.style.display='none';">
+      
+      </div>
+      <div class="p-body">
+        <div class="p-num">04 ── DRY SPICE</div>
+        <div class="p-name">Dry Sliced Ginger</div>
+        <div class="p-tagline">Dried to Perfection. Purity in Every Slice.</div>
+        <p class="p-desc">Hygienically processed and sun dried to retain natural flavour, aroma and goodness.</p>
+        <div class="p-tags"><span class="p-tag">Sun Dried</span><span class="p-tag">No Preservatives</span></div>
+        <div class="p-cta-row">
+          <button class="p-btn-detail" onclick="openProductPage(3);event.stopPropagation();">Details</button>
+          <button class="p-btn-inquiry" onclick="goToInquiry(3);event.stopPropagation();">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" onclick="openProductPage(4)">
+      <div class="p-view-badge">View Details</div>
+      <div class="p-img">
+        <img src="whole-spices.jpg" alt="Whole Spices" onerror="this.style.display='none';">
+
+      </div>
+      <div class="p-body">
+        <div class="p-num">05 ── WHOLE SPICES</div>
+        <div class="p-name">Whole Spices</div>
+        <div class="p-tagline">Authentic Flavours, Always.</div>
+        <p class="p-desc">A curated selection of whole spices — cloves, cinnamon, bay leaves, cumin and more.</p>
+        <div class="p-tags"><span class="p-tag">Whole</span><span class="p-tag">Unprocessed</span></div>
+        <div class="p-cta-row">
+          <button class="p-btn-detail" onclick="openProductPage(4);event.stopPropagation();">Details</button>
+          <button class="p-btn-inquiry" onclick="goToInquiry(4);event.stopPropagation();">Inquire</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CATALOGUE STRIP -->
+<section id="catalogue">
+  <div class="cat-text">
+    <h3>Download Our Product Catalogue</h3>
+    <p>Full range of premium spices — all in one document.</p>
+  </div>
+  <a href="catalogue.pdf" download class="btn-cat-dl">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 12l-4-4h2.5V2h3v6H12L8 12zm-5 2h10v1.5H3V14z"/></svg>
+    Download PDF Catalogue
+  </a>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-gem">✦</div><div class="divider-line"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <div class="about-frame">
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="stat-val">Pure</div><div class="stat-lbl">No Adulteration</div></div>
+        <div class="stat-cell"><div class="stat-val">Fresh</div><div class="stat-lbl">Every Batch</div></div>
+        <div class="stat-cell"><div class="stat-val">Bold</div><div class="stat-lbl">Rich Aroma</div></div>
+        <div class="stat-cell"><div class="stat-val">✦</div><div class="stat-lbl">Good Quality, Great Taste</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">Ansari Traders</h2>
+    <p class="section-intro" style="margin-bottom:1.8rem;">Good Quality. Great Taste.</p>
+    <p>At Ansari Traders, we believe that the soul of every great meal begins with the right spice. Based in the heart of Sonari, Assam, we bring you premium quality spices that stay true to their natural character.</p>
+    <p>Every product on our shelf is chosen with care — for its aroma, its flavour, its purity. From bold black cardamom to sun-dried ginger slices, we stock only what we would use ourselves.</p>
+    <p>Our commitment is simple: deliver the finest quality at every price point, for every home, for every recipe.</p>
+    <div class="owner-row">
+      <div class="owner-av">AT</div>
+      <div>
+        <div class="owner-name">Ansari Traders</div>
+        <div class="owner-role">Sonari, Assam 785690</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><div class="divider-gem">✦</div><div class="divider-line"></div></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get in Touch</div>
+  <h2 class="section-title">Visit or Order</h2>
+  <p class="section-intro">Come see us in Sonari — or send us your order directly on WhatsApp.</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="c-info-card">
+        <div class="c-icon">◎</div>
+        <div><div class="c-label">Location</div><div class="c-val">Sonari, Assam 785690</div></div>
+      </div>
+      <div class="c-info-card">
+        <div class="c-icon">💬</div>
+        <div><div class="c-label">WhatsApp</div><div class="c-val">+91 60033 50637</div></div>
+      </div>
+      <div class="c-info-card">
+        <div class="c-icon">✦</div>
+        <div><div class="c-label">Our Promise</div><div class="c-val">Good Quality · Great Taste</div></div>
+      </div>
+    </div>
+    <div class="wa-form-wrap">
+      <div class="wa-form-title">Send Us Your Order</div>
+      <div class="wa-form-sub">Fill in your details and tap Send — WhatsApp will open with your message ready.</div>
+
+      <div class="wa-prefill-notice" id="waPrefillNotice">
+        <span>✦</span>
+        <span id="waPrefillText">Product pre-selected.</span>
+        <button onclick="clearPrefill()">✕</button>
+      </div>
+
+      <div class="wa-form">
+        <div class="field-group">
+          <label for="wa-name">Your Name</label>
+          <input type="text" id="wa-name" placeholder="e.g. Your Name" autocomplete="off" />
+        </div>
+        <div class="field-group">
+          <label for="wa-product">Product / Spice</label>
+          <select id="wa-product">
+            <option value="">— Select a product —</option>
+            <option>Black Cardamom</option>
+            <option>Black Pepper</option>
+            <option>Ginger</option>
+            <option>Dry Sliced Ginger</option>
+            <option>Whole Spices</option>
+            <option>Other / Multiple</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="wa-qty">Quantity / Requirement</label>
+          <input type="text" id="wa-qty" placeholder="e.g. 2 kg, 500g pack, bulk order…" />
+        </div>
+        <div class="field-group">
+          <label for="wa-msg">Additional Message <span style="font-weight:300;text-transform:none;letter-spacing:0">(optional)</span></label>
+          <textarea id="wa-msg" placeholder="Any special requirements, delivery notes, etc."></textarea>
+        </div>
+        <button class="btn-wa" onclick="sendWhatsApp()">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 0C7.163 0 0 7.163 0 16c0 2.824.737 5.475 2.027 7.782L0 32l8.435-2.007A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.3 13.3 0 01-6.785-1.856l-.486-.29-5.008 1.192 1.214-4.884-.317-.502A13.285 13.285 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.927c-.398-.199-2.354-1.162-2.719-1.295-.366-.133-.632-.199-.898.2-.267.398-1.031 1.295-1.264 1.561-.232.267-.465.3-.863.1-.398-.2-1.68-.619-3.2-1.975-1.183-1.055-1.98-2.358-2.213-2.756-.232-.399-.025-.614.175-.812.179-.178.398-.465.597-.698.2-.232.266-.398.399-.664.133-.267.066-.499-.034-.698-.1-.2-.898-2.162-1.23-2.96-.324-.778-.654-.673-.898-.685l-.766-.013c-.266 0-.697.1-.1063.499s-1.23 1.262-1.23 3.077c0 1.814 1.263 3.569 1.44 3.815.177.247 2.488 3.8 6.027 5.327.843.364 1.5.58 2.012.743.846.27 1.616.232 2.224.14.679-.1 2.09-.854 2.385-1.68.293-.826.293-1.534.205-1.68-.088-.147-.32-.232-.72-.432z"/>
+          </svg>
+          Send Order via WhatsApp
+        </button>
+        <p class="btn-wa-note">WhatsApp will open with your message pre-filled. Tap Send to confirm.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand">✦ ANSARI TRADERS</div>
+      <div class="f-tagline">Premium Spices for Every Home</div>
+      <p class="f-desc">Serving Sonari and Assam with the finest quality spices. Good Quality. Great Taste.</p>
+    </div>
+    <div>
+      <div class="f-col-title">Navigate</div>
+      <ul class="f-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#catalogue">Catalogue</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-col-title">Legal</div>
+      <ul class="f-links">
+        <li><a href="#" onclick="openModal('privacy');return false;">Privacy Policy</a></li>
+        <li><a href="#" onclick="openModal('terms');return false;">Terms & Conditions</a></li>
+        <li><a href="#" onclick="openModal('returns');return false;">Returns Policy</a></li>
+        <li><a href="#" onclick="openModal('disclaimer');return false;">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="f-copy">© 2025 Ansari Traders. Sonari, Assam 785690. All rights reserved.</div>
+    <div class="f-legal">
+      <a href="#" onclick="openModal('privacy');return false;">Privacy</a>
+      <a href="#" onclick="openModal('terms');return false;">Terms</a>
+      <a href="#" onclick="openModal('returns');return false;">Returns</a>
+      <a href="#" onclick="openModal('disclaimer');return false;">Disclaimer</a>
+    </div>
+  </div>
+</footer>
+
+<!-- LEGAL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalBg(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAIL PAGE -->
+<div class="product-page" id="productPage">
+  <div class="pp-nav">
+    <button class="pp-back" onclick="closeProductPage()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Products
+    </button>
+    <div class="pp-breadcrumb">Products <span>›</span> <span id="ppBreadcrumb">—</span></div>
+  </div>
+  <div class="pp-content">
+    <div class="pp-hero">
+      <div class="pp-img-wrap">
+        <img id="ppImg" src="" alt="" onerror="this.style.display='none';document.getElementById('ppImgPlaceholder').style.display='flex';">
+        <div class="pp-img-placeholder" id="ppImgPlaceholder" style="display:none;">
+          <span class="pp-icon" id="ppPlaceholderIcon">🌿</span>
+          <small>Image coming soon</small>
+        </div>
+      </div>
+      <div class="pp-info">
+        <div class="pp-num" id="ppNum"></div>
+        <div class="pp-name" id="ppName"></div>
+        <div class="pp-tagline" id="ppTagline"></div>
+        <div class="pp-tags" id="ppTags"></div>
+        <p class="pp-desc" id="ppDesc"></p>
+        <div class="pp-divider"></div>
+        <div class="pp-details-grid" id="ppDetailsGrid"></div>
+        <div class="pp-action-row">
+          <button class="pp-btn-contact" onclick="goToContactFromPage()">✦ Enquire About This Product</button>
+          <button class="pp-btn-wa" onclick="sendWhatsAppFromPage()">
+            <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C7.163 0 0 7.163 0 16c0 2.824.737 5.475 2.027 7.782L0 32l8.435-2.007A15.94 15.94 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.3 13.3 0 01-6.785-1.856l-.486-.29-5.008 1.192 1.214-4.884-.317-.502A13.285 13.285 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.927c-.398-.199-2.354-1.162-2.719-1.295-.366-.133-.632-.199-.898.2-.267.398-1.031 1.295-1.264 1.561-.232.267-.465.3-.863.1-.398-.2-1.68-.619-3.2-1.975-1.183-1.055-1.98-2.358-2.213-2.756-.232-.399-.025-.614.175-.812.179-.178.398-.465.597-.698.2-.232.266-.398.399-.664.133-.267.066-.499-.034-.698-.1-.2-.898-2.162-1.23-2.96-.324-.778-.654-.673-.898-.685l-.766-.013c-.266 0-.697.1-.1063.499s-1.23 1.262-1.23 3.077c0 1.814 1.263 3.569 1.44 3.815.177.247 2.488 3.8 6.027 5.327.843.364 1.5.58 2.012.743.846.27 1.616.232 2.224.14.679-.1 2.09-.854 2.385-1.68.293-.826.293-1.534.205-1.68-.088-.147-.32-.232-.72-.432z"/>
+            </svg>
+            Order on WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="pp-related">
+      <div class="pp-related-title">Other Products You May Like</div>
+      <div class="pp-related-grid" id="ppRelatedGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── PRODUCT DATA ── */
+const products = [
+  {
+    id: 0, num: '01 ── SPICE', name: 'Black Cardamom',
+    tagline: 'Rich Aroma. Bold Flavour.',
+    desc: 'Strong, smoky aroma and deep earthy flavour. Carefully selected for every authentic recipe. Our Black Cardamom is sourced from the finest growing regions, hand-picked at peak maturity to ensure maximum aroma and flavour. Each pod is naturally sun-dried to preserve its bold, camphor-like fragrance that elevates biryanis, curries, and chai.',
+    tags: ['Natural', 'Premium', 'Biryani', 'Pulao', 'Korma'],
+    img: 'black-cardamom.jpg', icon: '🌿', waName: 'Black Cardamom',
+    details: [
+      { label: 'Category', val: 'Whole Spice' }, { label: 'Origin', val: 'Northeast India' },
+      { label: 'Best For', val: 'Biryani, Pulao, Korma, Chai' }, { label: 'Storage', val: 'Cool & dry, airtight' },
+      { label: 'Shelf Life', val: 'Up to 18 months' }, { label: 'Processing', val: 'Natural Sun-Dried' }
+    ]
+  },
+  {
+    id: 1, num: '02 ── SPICE', name: 'Black Pepper',
+    tagline: 'Bold Taste. Pure Goodness.',
+    desc: 'Finest peppercorns for a sharp, pungent taste and natural freshness in every grain. Our Black Pepper is sourced from premium pepper vines and dried to perfection — delivering that characteristic bite, warmth, and depth that transforms every dish. High in piperine for both flavour and wellness benefits.',
+    tags: ['Pure & Natural', 'Hand Picked', 'High Piperine'],
+    img: 'black-pepper.jpg', icon: '⚫', waName: 'Black Pepper',
+    details: [
+      { label: 'Category', val: 'Whole / Ground Spice' }, { label: 'Origin', val: 'South India' },
+      { label: 'Best For', val: 'All cuisines, marinades, soups' }, { label: 'Storage', val: 'Cool & dry, airtight' },
+      { label: 'Shelf Life', val: 'Up to 24 months' }, { label: 'Processing', val: 'Hand Picked & Dried' }
+    ]
+  },
+  {
+    id: 2, num: '03 ── ROOT', name: 'Ginger',
+    tagline: 'Pure. Natural. Full of Goodness.',
+    desc: 'Premium ginger selected for rich aroma, strong flavour, and natural freshness — for everyday cooking and wellness. Our fresh ginger roots are hand-selected for size, aroma, and fibre content. Whether for cooking, tea, or traditional remedies, each piece carries the bold warmth that good ginger is known for.',
+    tags: ['Natural', 'Rich in Nutrients', 'Tea', 'Remedies'],
+    img: 'ginger.jpg', icon: '🫚', waName: 'Ginger',
+    details: [
+      { label: 'Category', val: 'Fresh Root Spice' }, { label: 'Origin', val: 'Assam & Northeast India' },
+      { label: 'Best For', val: 'Cooking, Ginger Tea, Remedies' }, { label: 'Storage', val: 'Refrigerate or cool dry place' },
+      { label: 'Shelf Life', val: 'Fresh: 2–3 weeks' }, { label: 'Processing', val: 'Naturally Sourced' }
+    ]
+  },
+  {
+    id: 3, num: '04 ── DRY SPICE', name: 'Dry Sliced Ginger',
+    tagline: 'Dried to Perfection. Purity in Every Slice.',
+    desc: 'Hygienically processed and sun dried to retain natural flavour, aroma and goodness. Easy to store and perfect for all recipes. Our Dry Sliced Ginger is made from premium fresh ginger — sliced uniformly and sun-dried without any artificial preservatives to lock in the authentic spicy warmth that elevates teas, curries, pickles, and traditional medicines.',
+    tags: ['Sun Dried', 'No Preservatives', 'Herbal Tea', 'Pickles'],
+    img: 'dryginger.jpeg', icon: '🍂', waName: 'Dry Sliced Ginger',
+    details: [
+      { label: 'Category', val: 'Dry Spice' }, { label: 'Origin', val: 'Assam & Northeast India' },
+      { label: 'Best For', val: 'Herbal Tea, Pickles, Masalas' }, { label: 'Storage', val: 'Cool & dry, airtight' },
+      { label: 'Shelf Life', val: 'Up to 12 months' }, { label: 'Processing', val: 'Sun Dried, No Preservatives' }
+    ]
+  },
+  {
+    id: 4, num: '05 ── WHOLE SPICES', name: 'Whole Spices',
+    tagline: 'Authentic Flavours, Always.',
+    desc: 'A curated selection of whole spices — cloves, cinnamon, bay leaves, cumin and more — for the most discerning kitchens. Whole spices retain more volatile oils and hence deliver stronger, more complex flavours than pre-ground alternatives. Our collection brings the best of Indian spice tradition to your kitchen, sourced fresh and packed with care.',
+    tags: ['Whole', 'Unprocessed', 'Maximum Flavour'],
+    img: 'whole-spices.jpg', icon: '🌰', waName: 'Whole Spices',
+    details: [
+      { label: 'Category', val: 'Whole Spice Assortment' }, { label: 'Includes', val: 'Cloves, Cinnamon, Cumin & more' },
+      { label: 'Best For', val: 'Curries, Rice, Marinades' }, { label: 'Storage', val: 'Cool & dry, airtight' },
+      { label: 'Shelf Life', val: 'Up to 24 months' }, { label: 'Processing', val: 'Whole & Unprocessed' }
+    ]
+  }
+];
+
+let currentProductIndex = null;
+
+/* ── PRODUCT DETAIL PAGE ── */
+function openProductPage(idx) {
+  const p = products[idx];
+  currentProductIndex = idx;
+
+  document.getElementById('ppBreadcrumb').textContent = p.name;
+  document.getElementById('ppNum').textContent = p.num;
+  document.getElementById('ppName').textContent = p.name;
+  document.getElementById('ppTagline').textContent = p.tagline;
+  document.getElementById('ppDesc').textContent = p.desc;
+
+  const img = document.getElementById('ppImg');
+  img.src = p.img; img.alt = p.name; img.style.display = 'block';
+  document.getElementById('ppImgPlaceholder').style.display = 'none';
+  document.getElementById('ppPlaceholderIcon').textContent = p.icon;
+
+  document.getElementById('ppTags').innerHTML = p.tags.map(t => `<span class="pp-tag">${t}</span>`).join('');
+  document.getElementById('ppDetailsGrid').innerHTML = p.details.map(d => `
+    <div class="pp-detail-item">
+      <div class="pp-detail-label">${d.label}</div>
+      <div class="pp-detail-val">${d.val}</div>
+    </div>`).join('');
+
+  document.getElementById('ppRelatedGrid').innerHTML = products.filter(x => x.id !== idx).map(r => `
+    <div class="pp-related-card" onclick="openProductPage(${r.id})">
+      <div class="pp-related-img"><img src="${r.img}" alt="${r.name}" onerror="this.style.display='none'"></div>
+      <div class="pp-related-body">
+        <div class="pp-related-name">${r.name}</div>
+        <div class="pp-related-tag">${r.tagline}</div>
+      </div>
+    </div>`).join('');
+
+  const page = document.getElementById('productPage');
+  page.classList.add('open');
+  page.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductPage() {
+  document.getElementById('productPage').classList.remove('open');
+  document.body.style.overflow = '';
+  currentProductIndex = null;
+}
+
+/* ── NAVIGATE TO CONTACT FORM WITH PRODUCT PREFILLED ── */
+function goToContactFromPage() {
+  if (currentProductIndex === null) return;
+  const p = products[currentProductIndex];
+  closeProductPage();
+  setTimeout(() => prefillContact(p.waName), 500);
+}
+
+function goToInquiry(idx) {
+  prefillContact(products[idx].waName);
+}
+
+function prefillContact(productName) {
+  const sel = document.getElementById('wa-product');
+  for (let opt of sel.options) {
+    if (opt.text === productName) { sel.value = opt.value; break; }
+  }
+  document.getElementById('waPrefillText').textContent = `"${productName}" has been pre-selected for your enquiry.`;
+  document.getElementById('waPrefillNotice').classList.add('visible');
+  setTimeout(() => {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 150);
+}
+
+function clearPrefill() {
+  document.getElementById('wa-product').value = '';
+  document.getElementById('waPrefillNotice').classList.remove('visible');
+}
+
+/* ── WHATSAPP FROM PRODUCT PAGE ── */
+function sendWhatsAppFromPage() {
+  if (currentProductIndex === null) return;
+  const p = products[currentProductIndex];
+  const text = `Hello Ansari Traders! 👋\n\nI am interested in: *${p.name}*\n${p.tagline}\n\nPlease share availability, pricing, and packaging options. Thank you!`;
+  window.open(`https://wa.me/916003350637?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+/* ── HERO DOTS ── */
+const dotsEl = document.getElementById('heroDots');
+for (let i = 0; i < 64; i++) { const s = document.createElement('span'); dotsEl.appendChild(s); }
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+/* ── MOBILE MENU ── */
+function openMobileMenu() { document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow = ''; }
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)';
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.product-card, .stat-cell, .c-info-card').forEach((el, i) => {
+  el.style.opacity = '0'; el.style.transform = 'translateY(18px)';
+  el.style.transition = `opacity 0.55s ease ${i * 0.06}s, transform 0.55s ease ${i * 0.06}s, box-shadow 0.3s, border-color 0.3s`;
+  revealObs.observe(el);
+});
+
+/* ── WHATSAPP CONTACT FORM ── */
+function sendWhatsApp() {
+  const name = document.getElementById('wa-name').value.trim();
+  const product = document.getElementById('wa-product').value;
+  const qty = document.getElementById('wa-qty').value.trim();
+  const msg = document.getElementById('wa-msg').value.trim();
+  if (!name) { alert('Please enter your name.'); return; }
+  if (!product) { alert('Please select a product.'); return; }
+  if (!qty) { alert('Please enter a quantity or requirement.'); return; }
+  let text = `Hello Ansari Traders! 👋\n\n*Name:* ${name}\n*Product:* ${product}\n*Requirement:* ${qty}\n`;
+  if (msg) text += `*Message:* ${msg}\n`;
+  text += `\nPlease confirm availability and price. Thank you!`;
+  window.open(`https://wa.me/916003350637?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+/* ── LEGAL MODALS ── */
+const modals = {
+  privacy: { title: 'Privacy Policy', date: 'Effective Date: January 2025', content: `<h3>Overview</h3><p>At Ansari Traders, we respect your privacy. This policy explains what limited information we may collect when you contact us or visit our store.</p><h3>Information We May Collect</h3><ul><li>Your name and contact details if you reach out to us directly</li><li>Order or enquiry details you share with us</li><li>General location information (city/region) if you provide it</li></ul><h3>How We Use Your Information</h3><p>Any information you share is used only to respond to your enquiries or process your order. We do not sell, share, or distribute your personal information to any third party.</p><h3>Data Storage</h3><p>We retain your details only as long as necessary to fulfil the purpose for which they were collected.</p><h3>Your Rights</h3><p>You may request to view, correct, or delete any personal information by contacting us at our store in Sonari, Assam.</p><h3>Contact</h3><p>Ansari Traders, Sonari, Assam 785690.</p>` },
+  terms: { title: 'Terms & Conditions', date: 'Effective Date: January 2025', content: `<h3>Acceptance</h3><p>By visiting our store or purchasing our products, you agree to these terms.</p><h3>Products</h3><p>All products are described as accurately as possible. Availability may vary from time to time.</p><h3>Pricing</h3><p>Prices are subject to change without prior notice. Enquire in-store for current pricing.</p><h3>Purchases</h3><p>Purchases may be made directly at our store or via WhatsApp enquiry. We encourage customers to inspect products at the time of purchase.</p><h3>Governing Law</h3><p>These terms are governed by the laws of India. Any disputes shall be subject to the jurisdiction of courts in Assam.</p><h3>Contact</h3><p>Ansari Traders, Sonari, Assam 785690.</p>` },
+  returns: { title: 'Returns Policy', date: 'Effective Date: January 2025', content: `<h3>Our Commitment</h3><p>We stand by the quality of every product we sell. If you are not satisfied, we are happy to help.</p><h3>Eligibility</h3><ul><li>Returns accepted within 7 days of purchase</li><li>Product must be in original, unopened condition</li><li>Proof of purchase (receipt) required</li><li>Opened products can only be returned for a genuine quality concern</li></ul><h3>How to Return</h3><p>Bring the product with your receipt to our store at Sonari, Assam 785690.</p><h3>Refunds & Exchanges</h3><p>Approved returns receive a full refund or exchange for a product of equal value.</p><h3>Exceptions</h3><p>We cannot accept returns on perishable spice items once sold, unless there is a clear quality defect.</p>` },
+  disclaimer: { title: 'Disclaimer', date: 'Effective Date: January 2025', content: `<h3>General</h3><p>Information on this website is for general purposes only. We make no warranties regarding completeness, accuracy or suitability.</p><h3>Product Use</h3><p>Our spice products are intended for culinary use. Any references to wellness or health benefits are based on traditional usage. Please consult a qualified professional for medical or dietary advice.</p><h3>Availability</h3><p>Product availability and pricing on this site may not reflect current in-store stock. Please visit us or enquire via WhatsApp for the latest information.</p><h3>Limitation of Liability</h3><p>To the fullest extent permitted by law, Ansari Traders shall not be liable for any indirect or consequential damages arising from the use of information on this website.</p><h3>Contact</h3><p>Ansari Traders, Sonari, Assam 785690.</p>` }
+};
+
+function openModal(key) {
+  const d = modals[key];
+  document.getElementById('modalContent').innerHTML = `<div class="modal-title">${d.title}</div><div class="modal-date">${d.date}</div><div class="modal-body">${d.content}</div>`;
+  document.getElementById('modalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+function closeModalBg(e) { if (e.target === document.getElementById('modalOverlay')) closeModal(); }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeProductPage(); closeMobileMenu(); closeChatbot(); }
+});
+</script>
+
+<!-- ═══════════════════════════════════════════
+     ANSARI TRADERS — AI CHATBOT
+     Calls /api/chat (Vercel serverless route)
+     API key stays safe on the server.
+════════════════════════════════════════════ -->
+<style>
+  /* ── CHAT BUBBLE BUTTON ── */
+  #chatBtn {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: var(--green); border: none; cursor: pointer;
+    box-shadow: 0 6px 24px rgba(45,122,79,0.38);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.25s, transform 0.25s;
+  }
+  #chatBtn:hover { background: var(--green-light); transform: scale(1.07); }
+  #chatBtn svg { width: 26px; height: 26px; fill: #fff; }
+  #chatBadge {
+    position: absolute; top: -4px; right: -4px;
+    background: #e74c3c; color: #fff; border-radius: 50%;
+    width: 18px; height: 18px; font-size: 0.6rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    border: 2px solid var(--bg); display: none;
+  }
+
+  /* ── CHAT WINDOW ── */
+  #chatWindow {
+    position: fixed; bottom: 96px; right: 28px; z-index: 9001;
+    width: 360px; max-width: calc(100vw - 32px);
+    background: var(--white); border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 48px rgba(45,122,79,0.18);
+    display: flex; flex-direction: column; overflow: hidden;
+    transform: scale(0.92) translateY(16px); opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    max-height: 520px;
+  }
+  #chatWindow.open {
+    opacity: 1; transform: scale(1) translateY(0);
+    pointer-events: all;
+  }
+
+  /* ── HEADER ── */
+  .chat-header {
+    background: var(--green); color: #fff;
+    padding: 0.9rem 1.1rem; display: flex; align-items: center; gap: 0.75rem;
+    flex-shrink: 0;
+  }
+  .chat-header-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0;
+  }
+  .chat-header-info { flex: 1; }
+  .chat-header-name { font-family: 'Cinzel', serif; font-size: 0.82rem; letter-spacing: 0.1em; font-weight: 600; }
+  .chat-header-status { font-size: 0.62rem; opacity: 0.8; letter-spacing: 0.06em; margin-top: 1px; }
+  .chat-close-btn {
+    background: rgba(255,255,255,0.15); border: none; border-radius: 50%;
+    width: 28px; height: 28px; cursor: pointer; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; transition: background 0.2s; flex-shrink: 0;
+  }
+  .chat-close-btn:hover { background: rgba(255,255,255,0.3); }
+
+  /* ── MESSAGES ── */
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 1rem;
+    display: flex; flex-direction: column; gap: 0.75rem;
+    scroll-behavior: smooth;
+  }
+  .chat-messages::-webkit-scrollbar { width: 4px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
+
+  .chat-bubble {
+    max-width: 82%; padding: 0.7rem 0.95rem;
+    border-radius: 14px; font-size: 0.82rem; line-height: 1.65;
+    word-break: break-word; animation: bubbleIn 0.2s ease;
+  }
+  @keyframes bubbleIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+
+  .chat-bubble.bot {
+    background: var(--green-pale); color: var(--dark);
+    border-bottom-left-radius: 4px; align-self: flex-start;
+  }
+  .chat-bubble.user {
+    background: var(--green); color: #fff;
+    border-bottom-right-radius: 4px; align-self: flex-end;
+  }
+
+  /* typing dots */
+  .typing-dots { display: inline-flex; gap: 4px; align-items: center; padding: 4px 2px; }
+  .typing-dots span {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--green-dim);
+    animation: dotBounce 1.2s ease-in-out infinite;
+  }
+  .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes dotBounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+  /* quick replies */
+  .quick-replies {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+    padding: 0 1rem 0.75rem; flex-shrink: 0;
+  }
+  .qr-btn {
+    font-size: 0.68rem; letter-spacing: 0.08em; color: var(--green);
+    border: 1px solid var(--green-dim); border-radius: 20px;
+    padding: 0.35rem 0.8rem; background: transparent;
+    cursor: pointer; transition: background 0.2s, border-color 0.2s;
+    font-family: 'Jost', sans-serif; white-space: nowrap;
+  }
+  .qr-btn:hover { background: var(--green-pale); border-color: var(--green); }
+
+  /* ── INPUT ROW ── */
+  .chat-input-row {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 0.9rem; border-top: 1px solid var(--border); flex-shrink: 0;
+  }
+  #chatInput {
+    flex: 1; border: 1px solid var(--border); border-radius: 20px;
+    padding: 0.55rem 1rem; font-size: 0.82rem; font-family: 'Jost', sans-serif;
+    color: var(--text); background: var(--bg); outline: none;
+    transition: border-color 0.2s; resize: none;
+  }
+  #chatInput:focus { border-color: var(--green-dim); }
+  #chatSend {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--green); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  #chatSend:hover { background: var(--green-light); }
+  #chatSend svg { width: 16px; height: 16px; fill: #fff; }
+  #chatSend:disabled { background: var(--green-dim); cursor: not-allowed; }
+</style>
+
+<!-- CHAT BUTTON -->
+<button id="chatBtn" onclick="toggleChatbot()" aria-label="Open chat assistant" title="Chat with us">
+  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+  <span id="chatBadge">1</span>
+</button>
+
+<!-- CHAT WINDOW -->
+<div id="chatWindow" role="dialog" aria-label="Ansari Traders Chat">
+  <div class="chat-header">
+    <div class="chat-header-icon">🌿</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Ansari Traders</div>
+      <div class="chat-header-status">● Online — Spice Assistant</div>
+    </div>
+    <button class="chat-close-btn" onclick="closeChatbot()" aria-label="Close chat">✕</button>
+  </div>
+
+  <div class="chat-messages" id="chatMessages"></div>
+
+  <div class="quick-replies" id="quickReplies">
+    <button class="qr-btn" onclick="sendQuick('What spices do you supply?')">Our Spices</button>
+    <button class="qr-btn" onclick="sendQuick('How can I place a bulk order?')">Bulk Orders</button>
+    <button class="qr-btn" onclick="sendQuick('What is the minimum order quantity?')">Min. Quantity</button>
+    <button class="qr-btn" onclick="sendQuick('How do I contact you?')">Contact Us</button>
+  </div>
+
+  <div class="chat-input-row">
+    <input id="chatInput" type="text" placeholder="Ask about our spices…" autocomplete="off"
+      onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}" />
+    <button id="chatSend" onclick="sendChatMessage()" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════
+   CHATBOT LOGIC — Ansari Traders
+   Calls /api/chat (Vercel serverless)
+═══════════════════════════════════ */
+(function() {
+  const WELCOME = "👋 Assalamu Alaikum! Welcome to **Ansari Traders**.\n\nI'm your spice assistant. Ask me about our premium spices, bulk orders, quality, or anything else!";
+  let chatHistory = [];   // [{role:'user'|'assistant', text:'...'}]
+  let chatOpened = false;
+  let isTyping = false;
+
+  function formatText(text) {
+    // Basic markdown: **bold**, newlines
+    return text
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+  }
+
+  function appendBubble(text, role) {
+    const msgs = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = `chat-bubble ${role}`;
+    div.innerHTML = formatText(text);
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  function showTyping() {
+    const msgs = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'chat-bubble bot';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  window.toggleChatbot = function() {
+    const win = document.getElementById('chatWindow');
+    const badge = document.getElementById('chatBadge');
+    if (win.classList.contains('open')) {
+      closeChatbot();
+    } else {
+      win.classList.add('open');
+      badge.style.display = 'none';
+      if (!chatOpened) {
+        chatOpened = true;
+        setTimeout(() => appendBubble(WELCOME, 'bot'), 300);
+      }
+      setTimeout(() => document.getElementById('chatInput').focus(), 350);
+    }
+  };
+
+  window.closeChatbot = function() {
+    document.getElementById('chatWindow').classList.remove('open');
+  };
+
+  window.sendQuick = function(text) {
+    document.getElementById('chatInput').value = text;
+    // Hide quick replies after first use
+    document.getElementById('quickReplies').style.display = 'none';
+    sendChatMessage();
+  };
+
+  window.sendChatMessage = async function() {
+    if (isTyping) return;
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+
+    input.value = '';
+    document.getElementById('quickReplies').style.display = 'none';
+    document.getElementById('chatSend').disabled = true;
+    isTyping = true;
+
+    appendBubble(msg, 'user');
+    chatHistory.push({ role: 'user', text: msg });
+
+    showTyping();
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: msg,
+          history: chatHistory.slice(-10) // send last 10 turns for context
+        })
+      });
+
+      removeTyping();
+
+      if (!res.ok) {
+        appendBubble("Sorry, I'm having trouble right now. Please contact us on WhatsApp: +91 6003350637", 'bot');
+      } else {
+        const data = await res.json();
+        const reply = data.reply || "I couldn't process that. Please WhatsApp us at +91 6003350637.";
+        appendBubble(reply, 'bot');
+        chatHistory.push({ role: 'assistant', text: reply });
+      }
+    } catch (err) {
+      removeTyping();
+      appendBubble("Network error. Please try again or contact us on WhatsApp: +91 6003350637", 'bot');
+    }
+
+    isTyping = false;
+    document.getElementById('chatSend').disabled = false;
+    document.getElementById('chatInput').focus();
+  };
+
+  // Show badge after 4 seconds to draw attention
+  setTimeout(() => {
+    const badge = document.getElementById('chatBadge');
+    const win = document.getElementById('chatWindow');
+    if (!win.classList.contains('open')) badge.style.display = 'flex';
+  }, 4000);
+})();
+</script>
+</body>
+</html>
